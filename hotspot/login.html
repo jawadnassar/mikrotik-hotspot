@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<link rel="icon" href="assets/favicon.ico">
+<title>internet hotspot > login</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="expires" content="-1" />
+<!-- Bootstrap core CSS -->
+<link href="assets/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="assets/signin.css" rel="stylesheet">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="assets/html5shiv.min.js"></script>
+  <script src="assets/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+$(if chap-id)
+	<form name="sendin" action="$(link-login-only)" method="post">
+		<input type="hidden" name="username" />
+		<input type="hidden" name="password" />
+		<input type="hidden" name="dst" value="$(link-orig)" />
+		<input type="hidden" name="popup" value="true" />
+	</form>
+	<script type="text/javascript" src="/md5.js"></script>
+	<script type="text/javascript">
+	<!--
+	    function doLogin() {
+		document.sendin.username.value = document.login.username.value;
+		document.sendin.password.value = hexMD5('$(chap-id)' + document.login.password.value + '$(chap-challenge)');
+		document.sendin.submit();
+		
+		return false;
+	    }
+	//-->
+	</script>
+$(endif)
+<div class="container">
+	<form class="form-signin" name="login" action="$(link-login-only)" method="post"
+		  $(if chap-id) onSubmit="return doLogin()" $(endif)>
+		<input type="hidden" name="dst" value="$(link-orig)" />
+		<input type="hidden" name="popup" value="true" />
+		<h2 class="form-signin-heading">Please sign in</h2>
+		$(if error)
+			<div class="alert alert-danger" role="alert">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<span class="sr-only">Error:</span>
+				$(error)
+			</div>
+		$(endif)
+		<label for="inputUsername" class="sr-only">Username</label>
+		<input id="inputUsername" name="username" type="text" class="form-control" placeholder="Username" value="$(username)" required />
+		<label for="inputPassword" class="sr-only">Password</label>
+		<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+		<button id="submitBtn" class="btn btn-lg btn-primary btn-block"  type="submit">Sign in</button>
+	</form>
+
+</div> <!-- /container -->		
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="assets/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
